@@ -1,15 +1,25 @@
-import React from "react";
+import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const user = true;
+  const { currentUser, logout } = UserAuth();
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <div className=" navbar bg-neutral text-neutral-content">
+    <div className="navbar fixed z-50 top-0 bg-neutral text-neutral-content">
       <div className="container mx-auto flex items-center justify-between">
         <a className="btn btn-ghost normal-case text-xl">MJ Chat</a>
 
-        {user && (
+        {currentUser && (
           <div>
-            <button className="border-white border-[1px] border-solid py-[6px] px-[12px] rounded-[8px] hover:text-white duration-300">
+            <button
+              onClick={handleLogout}
+              className="border-white border-[1px] border-solid py-[6px] px-[12px] rounded-[8px] hover:text-white duration-300"
+            >
               Logout
             </button>
           </div>
